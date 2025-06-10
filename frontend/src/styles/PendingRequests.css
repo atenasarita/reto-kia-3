@@ -1,0 +1,105 @@
+.pending-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: black;
+  z-index: 0;
+}
+
+.pending-screen::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://cdn.motor1.com/images/mgl/g4MJo9/s1/2025-kia-k4-teaser.webp');
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.pending-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 20px 40px;
+  color: white;
+  text-align: center;
+}
+
+.pending-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.pending-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(7px);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 20px;
+  color: white;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.pending-card{
+  display: flex;
+  flex-direction: row;
+}
+
+.pending-card p {
+  margin: 6px 0;
+}
+
+.pending card user-info{
+  display: flex;
+  flex-direction: column;
+}
+
+.pending-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.pending-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 150px;
+  height: auto;
+  font-size: 1rem;
+}
+
+.pending-approve {
+  background-color: #4caf50;
+  color: white;
+}
+
+.pending-reject {
+  background-color: #f44336;
+  color: white;
+}
+
+.pending-approve:hover {
+  background-color: #45a049;
+}
+
+.pending-reject:hover {
+  background-color: #e53935;
+}
+
+.pending-message {
+  font-size: 1.2rem;
+  margin-top: 30px;
+}
+
+.pending-feedback {
+  margin-top: 10px;
+  color: #ffd700;
+  font-weight: bold;
+}

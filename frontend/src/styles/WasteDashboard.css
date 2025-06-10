@@ -1,0 +1,63 @@
+.waste-dashboard-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: black;
+}
+
+.waste-dashboard-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.waste-dashboard-container {
+  width: 100%;
+  max-width: 1300px;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.waste-dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: black;
+}
+
+.waste-dashboard-graphs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+}
+
+.dashboard-card h3 {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 10px;
+}
