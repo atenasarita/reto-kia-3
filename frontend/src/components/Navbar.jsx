@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src="/assets/kia-logo-white.png" alt="KIA" style={{height: "40px"}} />
+      <Link to="/session-started"> <img src="/assets/kia-logo-white.png" alt="KIA" style={{height: "40px"}} /> </Link>
         <p>{loggedUser.username}</p>
       </div>
 
