@@ -42,7 +42,6 @@ exports.insertTipoReferral = async (referralId, tipo) => {
   );
 };
 
-
 exports.insertCantidadTipoReferral = async (referralId, tipo, cantidad) => {
   await db.query(
     `INSERT INTO cantidad_tipo_referral (id_referral, tipo, cantidad) VALUES ($1, $2, $3)`,
