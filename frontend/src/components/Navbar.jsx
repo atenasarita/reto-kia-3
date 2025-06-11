@@ -43,6 +43,7 @@ export default function Navbar() {
           <Link to="/waste-dashboard">Dashboards</Link>
           <Link to="/waste-referrals">Referrals</Link>
           <Link to="/pending-requests">Requests</Link>
+          <Link to="/manifiestos">Manifiestos</Link>
 
         </div>
         

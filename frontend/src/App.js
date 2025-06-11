@@ -15,6 +15,8 @@ import WasteDashboard from './pages/WasteDashboard';
 import WasteHistory from './pages/WasteHistory';
 import WasteRegistry from './pages/WasteRegistry';
 import WasteReferrals from './pages/WasteReferrals'; 
+import Manifiestos from './pages/Manifiestos'; 
+
 
 const App = () => {
   return (
@@ -25,6 +27,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/manifiestos" element={<Manifiestos />} />
 
       {/* Rutas protegidas (usuario autenticado) */}
       <Route
@@ -84,6 +87,15 @@ const App = () => {
           </AdminRoute>
         }
       />
+
+        <Route
+        path="/manifiestos"
+        element={
+          <AdminRoute>
+            <Manifiestos />
+          </AdminRoute>
+        }
+        />
     </Routes>
   );
 };
