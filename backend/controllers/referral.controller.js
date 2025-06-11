@@ -15,7 +15,7 @@ exports.createReferral = async (req, res) => {
     for (const record of selectedRecords) {
       await referralModel.insertTipoReferral(referralId, record.type);
       await referralModel.insertCantidadTipoReferral(referralId, record.type, record.amount);
-    }   
+    }
 
     res.status(201).json(newReferral);
   } catch (err) {
