@@ -1,0 +1,147 @@
+.session-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.session-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+
+.buttons-session {
+  position: absolute;
+  top: 30px;
+  right: 25px;
+  display: flex;
+  gap: 10px;
+  z-index: 2; 
+}
+
+.buttons-session button{
+  padding: 12px 25px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 20px;
+  transition: 500ms;
+}
+
+.buttons-session button:hover{
+  background: rgb(0, 0, 0);
+  transform: translateY(-3px);
+}
+
+.session-container {
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 50px 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  max-width: 1200px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.session-main-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.session-main-text img{
+  height: 60px;
+  width: auto;
+  margin-bottom: 80px;
+}
+
+.session-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: whitesmoke;
+}
+
+.session-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: whitesmoke;
+}
+
+.session-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.session-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  width: 150px;
+  height: 180px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.session-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.session-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.session-card span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: black;
+}
+
+.session-dashboard {
+  background: white;
+  padding: 30px;
+  margin-top: 40px;
+  border-radius: 15px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .session-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .session-card {
+    width: 80%;
+  }
+}

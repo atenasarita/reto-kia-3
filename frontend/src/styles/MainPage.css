@@ -1,0 +1,64 @@
+.main-page-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-page-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centrado vertical */
+  text-align: center;
+  height: 100vh; /* ocupar altura completa */
+  margin-top: 0; /* elimina desplazamiento hacia arriba */
+}
+
+.main-page-logo {
+  width: 200px; /* más grande */
+  margin-bottom: 20px;
+}
+
+.main-page-title {
+  font-size: 80px; /* más grande */
+  color: white;
+  margin-bottom: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.main-page-button {
+  font-size: 20px; /* más legible */
+  margin: 12px 0;
+  padding: 16px 50px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 50px;
+  width: 300px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.main-page-button:hover {
+  background-color: white;
+  color: black;
+}

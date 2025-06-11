@@ -1,0 +1,117 @@
+.waste-registry-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+  background-color: black;
+  font-size: 15px;
+}
+
+.waste-registry-screen::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://img.asmedia.epimg.net/resizer/v2/WXI4SA45SFAAFOKKCV3HVVV27I.jpg?auth=21a536f18c75f69aa1d54e8f6bea5c246b3d67642a99334440ab85af6c352ef0&width=1952&height=1098&smart=true');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.waste-registry-container {
+  background-color: #f0f2f4  ;
+  backdrop-filter: blur(7px);
+  margin-top: 130px;
+  margin-bottom: 40px;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 90%;
+  width: 1700px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.waste-registry-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+  color: #252525;
+}
+
+.waste-registry-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px;
+}
+
+.waste-registry-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.waste-registry-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #252525;
+}
+
+.waste-registry-form input[type="text"],
+.waste-registry-form input[type="date"],
+.waste-registry-form input[type="number"],
+.waste-registry-form select {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+  transition: border-color 0.2s ease;
+  max-width: 700px;
+  padding: 10px;
+}
+
+.waste-registry-form input[type="text"]:focus,
+.waste-registry-form input[type="date"]:focus,
+.waste-registry-form input[type="number"]:focus,
+.waste-registry-form select:focus {
+  border-color: #444;
+  outline: none;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row !important;
+  gap: 10px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.logwaste-submit-btn{
+  width: 300px;
+  border-radius: 10px;
+  border: solid;
+  border-width: 3px;
+  background-color: transparent;
+  color: #252525;
+  border-color: #252525;
+  backdrop-filter: blur(10px);
+  font-weight: bold;
+}
+
+.logwaste-submit-btn:hover{
+  background-color: rgb(255, 255, 255);
+  color: #444;
+  cursor: pointer;
+  transition: all 200ms;
+}
