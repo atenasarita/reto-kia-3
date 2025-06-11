@@ -86,8 +86,6 @@ export default function WasteDashboard() {
 
   return (
     <div className="waste-dashboard-screen">
-      <Navbar />
-
       <video
         ref={videoRef}
         autoPlay
@@ -101,6 +99,7 @@ export default function WasteDashboard() {
       </video>
 
       <div className="waste-dashboard-container">
+        <Navbar />
         <h1 className="waste-dashboard-title">Dashboard General de Residuos</h1>
 
         <div className="waste-dashboard-graphs">
@@ -141,6 +140,12 @@ export default function WasteDashboard() {
           </div>
         </div>
       </div>
+
+        <div className="session-dashboard">
+  
+</div>
+
+      
     </div>
   );
 }
