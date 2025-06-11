@@ -5,31 +5,31 @@ import axiosInstance from "../utils/axiosInstance";
 import "../styles/WasteRegistry.css";
 
 const type = [
-  'Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa...',
-  'Plásticos contaminados con aceite hidráulico y pintura...',
-  'Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías',
-  'Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello',
-  'Tambos vacíos plásticos contaminados limpiadores con base de hidróxido de potasio',
-  'Lodos de Fosfatizado proveniente de la lavadora de fosfatizado',
-  'Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello',
-  'Contenedores vacíos plásticos contaminados de pintura de aceite y aceite hidráulico',
-  'Aceite Gastado proveniente de mantenimientos',
-  'Solventes mezclados con base thinner',
-  'Totes contaminados plásticos con aceite hidráulico',
-  'Agua contaminada con pintura',
-  'Filtros contaminados con pigmentos y agua (Planta tratadora)',
-  'Sello gastado de aplicación a carcazas',
-  'Residuos no anatómicos de curaciones',
-  'Objetos punzocortantes médicos',
-  'Pilas alcalinas',
-  'Baterías de equipos automotores',
-  'Lodos de clara (residuos casetas pintura)',
-  'Rebaba y eslinga metálica impregnada con aceite',
-  'Lámparas fluorescentes',
-  'Filtros contaminados con pigmentos y agua (Planta pintura)',
-  'Contenedores metálicos de gases refrigerantes',
-  'Catalizadores gastados de equipos automotores',
-  'Baterías automotrices de litio metálico'
+  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa provenientes de actividades de limpieza, operación y mantenimiento",
+  "Plásticos contaminados con aceite hidráulico y pintura provenientes de actividades de limpieza y operación",
+  "Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías",
+  "Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello",
+  "Tambos vacíos plásticos contaminados con limpiadores con base de hidróxido de potasio",
+  "Lodos de fosfatizado proveniente de la lavadora de fosfatizado",
+  "Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello",
+  "Contenedores vacíos plásticos contaminados de pintura de aceite y aceite hidráulico",
+  "Aceite gastado proveniente de los mantenimientos realizados a los equipos",
+  "Solventes mezclados con base de thinner provenientes de las actividades de limpieza y/o los mantenimientos realizados a los equipos",
+  "Totes contaminados plásticos con aceite hidráulico",
+  "Agua contaminada con pintura proveniente de la aplicación a las carrocerías",
+  "Filtros contaminados con pigmentos y agua provenientes de la planta tratadora de aguas residuales",
+  "Sello gastado: proveniente de la aplicación de sellos a carcazas",
+  "Residuos no anatómicos: algodón, gasas, vendas, sábanas, guantes provenientes de curaciones",
+  "Objetos punzocortantes provenientes de procedimientos médicos: lancetas, agujas, bisturís",
+  "Pilas alcalinas",
+  "Baterías de equipos automotores",
+  "Lodos de clara provenientes de residuos de casetas de pintura",
+  "Rebaba y eslinga metálica impregnada con aceite proveniente del mantenimiento a troqueles",
+  "Lámparas fluorescentes",
+  "Filtros contaminados con pigmentos y agua provenientes de la planta de pintura",
+  "Contenedores vacíos metálicos de gases refrigerantes",
+  "Catalizadores gastados de equipos automotores",
+  "Baterías automotrices de metal litio"
 ];
 const contenedores = ['Paca', 'Pieza', 'Tambo', 'Tarima', 'Tote'];
 const areas = ['Assembly', 'HO', 'Paint', 'PTAR', 'Stamping', 'Utility', 'Vendors', 'Welding'];
@@ -45,13 +45,14 @@ const responsible = ['Yamileth Cuellar'];
 
 
 const defaultValuesMap = {
-  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa...": [
+  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa provenientes de actividades de limpieza, operación y mantenimiento": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Geocycle México, S.A. de C.V.",
       art71: "Co-procesamiento",
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -62,25 +63,28 @@ const defaultValuesMap = {
     }
   ],
 
-  "Plásticos contaminados con aceite hidráulico y pintura...": {
+  "Plásticos contaminados con aceite hidráulico y pintura provenientes de actividades de limpieza y operación":  {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. de C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Geocycle México, S.A. de C.V.",
-    art71: "Co-procesamiento"
+    art71: "Co-procesamiento",
+    chemicals: ['T']
   },
 
   "Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Geocycle México, S.A. de C.V.",
-    art71: "Co-procesamiento"
+    art71: "Co-procesamiento",
+    chemicals: ['T']
   },
 
   "Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello": {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "BARRILES METALICOS S.A. de C.V.",
-    art71: "Reciclaje"
+    art71: "Reciclaje",
+    chemicals: ['T']
   },
 
   "Tambos vacíos plásticos contaminados limpiadores con base de hidróxido de potasio": [
@@ -89,7 +93,8 @@ const defaultValuesMap = {
       reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
       aut_semarnat: "19-I-001D-16",
       reason_destination: "BARRILES METALICOS S.A. de C.V.",
-      art71: "Reciclaje"
+      art71: "Reciclaje",
+      chemicals: ['T']
     },
 
     {
@@ -113,7 +118,8 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Sociedad Ecológica Mexicana del Norte SA",
-    art71: "Confinamiento"
+    art71: "Confinamiento",
+    chemicals: ['C','T']
   },
 
   "Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello": [
@@ -123,6 +129,7 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV ",
       art71: "Confinamiento",
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -130,6 +137,7 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-009-D-18",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV",
       art71: "Confinamiento",
+      chemicals: ['T']
     }
   ],
 
@@ -137,16 +145,18 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
-    art71: "Confinamiento"
+    art71: "Confinamiento",
+    chemicals: ['T']
   },
   
-  "Aceite Gastado proveniente de mantenimientos": [
+  "Aceite gastado proveniente de los mantenimientos realizados a los equipos": [
     {
       // Option 1:
       reason_art71: "LAURA MIREYA NAVARRO CEPEDA ",
       aut_semarnat: "19-I-001D-16",
       reason_destination: "MAQUILADORA DE LUBRICANTES S.A. DE C.V.",
       art71: ["Reciclaje", "Co-procesamiento"],
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -157,13 +167,14 @@ const defaultValuesMap = {
     }
   ],
 
-  "Solventes mezclados con base thinner": [
+  "Solventes mezclados con base de thinner provenientes de las actividades de limpieza y/o los mantenimientos realizados a los equipos": [
     {
       // Option 1:
       reason_art71: "CONDUGAS DEL NORESTE, S.A DE C.V",
       aut_semarnat: "19-I-031D-19",
       reason_destination: "ECOQUIM S.A DE C.V",
       art71: "Reciclaje",
+      chemicals: ['T', 'I']
     },
     {
       // Option 2:
@@ -178,16 +189,17 @@ const defaultValuesMap = {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "BARRILES METALICOS S.A. de C.V.",
-    art71: "Reciclaje"
+    art71: "Reciclaje",
+    chemicals: ['T']
   },
 
-  "Agua contaminada con pintura": [
-    {
+  "Agua contaminada con pintura proveniente de la aplicación a las carrocerías": [{
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "AQUAREC, SAPI de CV",
       art71: "Co-procesamiento",
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -198,20 +210,22 @@ const defaultValuesMap = {
     }
   ],
 
-  "Filtros contaminados con pigmentos y agua (Planta tratadora)": {
+  "Filtros contaminados con pigmentos y agua provenientes de la planta tratadora de aguas residuales": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
-    art71: "Co-procesamiento"
+    art71: "Co-procesamiento",
+    chemicals: ['T']
   },
 
-  "Sello gastado de aplicación a carcazas": [
+  "Sello gastado: proveniente de la aplicación de sellos a carcazas": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Geocycle México, S.A. de C.V.", "Sociedad Ecológica Mexicana del Norte SA"],
       art71: ["Co-procesamiento", "Confinamiento"],
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -222,18 +236,20 @@ const defaultValuesMap = {
     }
   ],
 
-  "Residuos no anatómicos de curaciones": {
+  "Residuos no anatómicos: algodón, gasas, vendas, sábanas, guantes provenientes de curaciones": {
     reason_art71: "C. JAIME ISAAC MORENO VILLAREAL",
     aut_semarnat: "5-27-PS-I-316D-11-2017",
     reason_destination: "Roberto Arturo Muñoz del Río",
-    art71: "Destrucción Térmica"
+    art71: "Destrucción Térmica",
+    chemicals: ['M']
   },
 
-  "Objetos punzocortantes médicos": {
+  "Objetos punzocortantes provenientes de procedimientos médicos: lancetas, agujas, bisturís": {
     reason_art71: "C. JAIME ISAAC MORENO VILLAREAL",
     aut_semarnat: "5-27-PS-I-316D-11-2017",
     reason_destination: "Roberto Arturo Muñoz del Río",
-    art71: "Destrucción Térmica"
+    art71: "Destrucción Térmica",
+    chemicals: ['M']
   },
 
   "Pilas alcalinas": [
@@ -243,6 +259,7 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Sociedad Ecológica Mexicana del Norte SA",
       art71: "Confinamiento",
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -257,21 +274,24 @@ const defaultValuesMap = {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "ELÉCTRICA AUTOMOTRIZ OMEGA, SA de CV",
-    art71: "Reciclaje"
+    art71: "Reciclaje",
+    chemicals: ['C','T']
   },
 
-  "Lodos de clara (residuos casetas pintura)": {
+  "Lodos de clara provenientes de residuos de casetas de pintura": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)",
-    art71: "Co-procesamiento"
+    art71: "Co-procesamiento",
+    chemicals: ['T']
   },
 
-  "Rebaba y eslinga metálica impregnada con aceite": {
+  "Rebaba y eslinga metálica impregnada con aceite proveniente del mantenimiento a troqueles": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
-    art71: "Confinamiento"
+    art71: "Confinamiento",
+    chemicals: ['T']
   },
 
   "Lámparas Fluorescentes": [
@@ -281,6 +301,7 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
       art71: ["Confinamiento", "Reciclaje"],
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -291,13 +312,14 @@ const defaultValuesMap = {
     }
   ],
 
-  "Filtros contaminados con pigmentos y agua (Planta pintura)": [
+  "Filtros contaminados con pigmentos y agua provenientes de la planta de pintura": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
       art71: "Confinamiento",
+      chemicals: ['T']
     },
     {
       // Option 2:
@@ -315,6 +337,7 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV",
       art71: "Confinamiento",
+      chemicals: ['C','T']
     },
     {
       // Option 2:
@@ -329,9 +352,13 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
-    art71: "Confinamiento"
+    art71: "Confinamiento",
+    chemicals: ['C','T']
   },
-  
+
+  "Baterías automotrices de metal litio": {
+    chemicals: ['C','T']
+  }
 };
 
 
@@ -397,10 +424,10 @@ export default function WasteRegistry() {
         setFormData((prev) => {
           const update = {};
           Object.entries(defaults).forEach(([key, value]) => {
-            if (!prev[key] || prev[key] === "") {
-              update[key] = Array.isArray(value) ? value[0] : value;
+            if (!prev[key] || prev[key] === "" || (Array.isArray(value) && prev[key].length === 0)) {
+              update[key] = value; // guarda el arreglo completo si es `chemicals`
             }
-          });
+          });          
 
 
           return { ...prev, ...update };
