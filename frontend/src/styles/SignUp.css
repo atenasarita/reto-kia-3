@@ -1,0 +1,169 @@
+.signup-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.signup-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1100px;
+  width: 100%;
+  padding: 0 20px;
+  z-index: 1;
+}
+
+.signup-logo {
+  width: 180px;
+  margin-bottom: 40px;
+}
+
+.signup-wrapper {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 650px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  min-height: 450px; /* Para que tenga un tamaño similar a login */
+}
+
+.signup-left-section {
+  flex: 1;
+  background: transparent;
+  color: black;
+  padding: 50px 60px; /* Igual que login */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  box-sizing: border-box;
+  text-align: left; /* Igual que login */
+}
+
+.signup-left-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.signup-left-section p {
+  font-size: 1.1rem;
+}
+
+.signup-left-section a {
+  color: #000;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.signup-right-section {
+  flex: 1;
+  background: white;
+  padding: 50px 60px; /* Igual que login */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Para que inicie desde arriba */
+  border-radius: 0 20px 20px 0;
+  max-height: 450px; /* Limitar altura */
+  overflow-y: auto; /* Scroll vertical si es necesario */
+}
+
+.signup-right-section form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-right-section label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #222;
+}
+
+.signup-field {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.signup-field:focus {
+  border-color: black;
+}
+
+.signup-error-message {
+  color: red;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.signup-success-message {
+  color: green;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.signup-button {
+  padding: 15px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+  margin-top: auto; /* Para empujar botón hacia abajo */
+}
+
+.signup-button:hover {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive igual que login */
+@media (max-width: 768px) {
+  .signup-wrapper {
+    flex-direction: column;
+  }
+  .signup-left-section,
+  .signup-right-section {
+    border-radius: 20px;
+    padding: 30px 20px;
+  }
+  .signup-left-section {
+    text-align: center;
+  }
+  .signup-right-section {
+    border-radius: 20px;
+    max-height: none; /* Elimina la altura máxima en móvil para evitar scroll */
+    overflow-y: visible;
+  }
+}

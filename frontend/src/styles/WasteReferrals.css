@@ -1,0 +1,226 @@
+.waste-referrals-screen {
+    min-height: 100vh;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .waste-referrals-video {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  .waste-referrals-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.95);
+    margin-top: 100px;
+    margin-bottom: 40px;
+    padding: 40px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    overflow-y: auto;
+  }
+  
+  .waste-referrals-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #333;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .filter-section label {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .filter-section select {
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    transition: border-color 0.2s ease;
+    margin-left: 15px;
+  }
+  
+  .filter-section select:focus {
+    border-color: #444;
+    outline: none;
+  }
+  
+  .referrals-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .referrals-table th,
+  .referrals-table td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  .referrals-table th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .referrals-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  
+  .referrals-table tr:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .select-btn,
+  .return-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .select-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .select-btn:hover {
+    background-color: #218838;
+  }
+  
+  .return-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .return-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .waste-referrals-container h2 {
+    font-size: 2rem;
+    margin-top: 40px;
+    font-weight: 700;
+    color: #333;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .edit-referral-form {
+    margin-top: 40px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-referral-form h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .edit-referral-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .edit-referral-form label {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .edit-referral-form input, select{
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+  }
+  
+  .edit-referral-form button.create-btn {
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .create-btn:hover {
+    background-color: #218838;
+  }
+
+  .fields-peso{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .fields-peso input{
+    width: 275px;
+    margin: 0 10px 0 10px;
+  }
+
+  @media (max-width: 768px) {
+    .waste-referrals-container {
+      padding: 20px;
+    }
+  
+    .referrals-table th,
+    .referrals-table td {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  
+    .waste-referrals-container h1 {
+      font-size: 2.2rem;
+    }
+  
+    .waste-referrals-container h2 {
+      font-size: 1.7rem;
+    }
+  
+  .edit-referral-form {
+      margin-top: 30px;
+    }
+  
+    .edit-referral-form input {
+      font-size: 0.9rem;
+    }
+  
+    .edit-referral-form button.create-btn {
+      font-size: 1rem;
+    }
+  }
