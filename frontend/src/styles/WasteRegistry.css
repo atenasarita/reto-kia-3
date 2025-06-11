@@ -8,6 +8,7 @@
   align-items: center;
   z-index: 0;
   background-color: black;
+  font-size: 15px;
 }
 
 .waste-registry-screen::before {
@@ -22,7 +23,8 @@
 }
 
 .waste-registry-container {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.184);
+  backdrop-filter: blur(7px);
   margin-top: 130px;
   margin-bottom: 40px;
   padding: 40px;
@@ -39,6 +41,7 @@
   margin-bottom: 20px;
   text-align: center;
   font-weight: 700;
+  color: #e6e6e6;
 }
 
 .waste-registry-form {
@@ -55,7 +58,7 @@
 .waste-registry-form label {
   font-weight: 600;
   margin-bottom: 8px;
-  color: #333;
+  color: #e6e6e6;
 }
 
 .waste-registry-form input[type="text"],
@@ -68,6 +71,8 @@
   font-size: 0.95rem;
   background-color: white;
   transition: border-color 0.2s ease;
+  max-width: 700px;
+  padding: 10px;
 }
 
 .waste-registry-form input[type="text"]:focus,
@@ -78,14 +83,35 @@
   outline: none;
 }
 
-.waste-registry-form .checkbox-group {
+.checkbox-group {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row !important;
   gap: 10px;
 }
 
-.waste-registry-form .checkbox-group label {
+.checkbox-group label {
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
+}
+
+.logwaste-submit-btn{
+  width: 300px;
+  border-radius: 10px;
+  border: solid;
+  border-width: 3px;
+  background-color: transparent;
+  color: white;
+  border-color: white;
+  backdrop-filter: blur(10px);
+  font-weight: bold;
+}
+
+.logwaste-submit-btn:hover{
+  background-color: rgb(255, 255, 255);
+  color: #444;
+  cursor: pointer;
+  transition: all 200ms;
 }

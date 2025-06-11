@@ -171,9 +171,9 @@ export default function WasteReferrals() {
       </video>
 
       <div className="waste-referrals-container">
-        <h1>Confirmed Records</h1>
+        <h1>Genera una remisión</h1>
         <div className="filter-section">
-          <label>Filter by Reason (art. 71): </label>
+          <label>Filtrar por Empresa Transportista: </label>
           <select value={filter} onChange={handleFilterChange}>
             <option value="">All</option>
             {uniqueReasons.map((r, i) => (
@@ -183,16 +183,17 @@ export default function WasteReferrals() {
         </div>
 
         <div className="confirmed-records-section">
-          <h2>Confirmed Records</h2>
+          <h2>Registros Elegibles</h2>
           <table className="referrals-table">
             <thead>
               <tr>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Container</th>
-                <th>Area</th>
-                <th>Reason</th>
-                <th>Select</th>
+                <th>Tipo de Residuo</th>
+                <th>Cantidad</th>
+                <th>Contenedor</th>
+                <th>Area Generadora</th>
+                <th>Empresa Transportista</th>
+                <th>Destino</th>
+                <th>Incluir</th>
               </tr>
             </thead>
             <tbody>
@@ -203,12 +204,13 @@ export default function WasteReferrals() {
                   <td>{record.container}</td>
                   <td>{record.area}</td>
                   <td>{record.reason_art71}</td>
+                  <td>{record.reason_destination}</td>
                   <td>
                     <button
                       className="select-btn"
                       onClick={() => handleSelect(record)}
                     >
-                      Select
+                      Incluir
                     </button>
                   </td>
                 </tr>
@@ -218,16 +220,17 @@ export default function WasteReferrals() {
         </div>
 
         <div className="selected-records-section">
-          <h2>Selected Records</h2>
+          <h2>Registros a Incluir</h2>
           <table className="referrals-table">
             <thead>
               <tr>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Container</th>
-                <th>Area</th>
-                <th>Reason</th>
-                <th>Actions</th>
+                <th>Tipo de Residuo</th>
+                <th>Cantidad</th>
+                <th>Contenedor</th>
+                <th>Area Generadora</th>
+                <th>Empresa Transportista</th>
+                <th>Destino</th>
+                <th>Incluir</th>
               </tr>
             </thead>
             <tbody>
@@ -238,6 +241,7 @@ export default function WasteReferrals() {
                   <td>{record.container}</td>
                   <td>{record.area}</td>
                   <td>{record.reason_art71}</td>
+                  <td>{record.reason_destination}</td>
                   <td>
                     <button
                       className="return-btn"
@@ -256,20 +260,20 @@ export default function WasteReferrals() {
           <button
             className="edit-btn"
             onClick={() => handleEdit(selectedRecords[0])}
-          > Edit Referral
+          > Completa los datos de la remisión
           </button>
         </div>
 
         {isEditing && (
           <div className="edit-referral-form">
-            <h2>Edit Referral</h2>
+            <h2>Datos de la remisión</h2>
             <div className="grouped-records-section">
-              <h2>Grouped Residue Types and Amounts</h2>
+              <h2>Descripción de Residuos Incluidos </h2>
               <table className="referrals-table">
                 <thead>
                   <tr>
-                    <th>Type</th>
-                    <th>Total Amount</th>
+                    <th>Tipo</th>
+                    <th>Cantidad Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -334,7 +338,7 @@ export default function WasteReferrals() {
               <input type="text" value={editData.num_econ || ""} onChange={(e) => setEditData({ ...editData, num_econ: e.target.value })} />
               <label>Firma:</label>
               <input type="text" value={editData.firma || ""} onChange={(e) => setEditData({ ...editData, firma: e.target.value })} />
-              <button type="submit" className="create-btn">Create Referral</button>
+              <button type="submit" className="create-btn">Generar Remisión</button>
             </form>
           </div>
         )}

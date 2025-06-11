@@ -708,20 +708,20 @@ export default function WasteRegistry() {
           </div>
           <div>
             <label>CRETI:</label>
-            <div className="flex flex-wrap gap-2">
-              {chemicals.map((q, i) => (
-                <label key={i}>
-                  <input
-                    type="checkbox"
-                    name="chemicals"
-                    value={q}
-                    checked={formData.chemicals.includes(q)}
-                    onChange={handleChange}
-                  />
-                  {q}
-                </label>
-              ))}
-            </div>
+              <div className="checkbox-group">
+                {chemicals.map((q, i) => (
+                  <label key={i}>
+                    <input
+                      type="checkbox"
+                      name="chemicals"
+                      value={q}
+                      checked={formData.chemicals.includes(q)}
+                      onChange={handleChange}
+                    />
+                    {q}
+                  </label>
+                ))}
+              </div>
           </div>
           <div>
             <label>Responsable:</label>
@@ -740,7 +740,7 @@ export default function WasteRegistry() {
           </div>
 
           <button type="submit" className="logwaste-submit-btn">
-            Submit Registry for Review
+            Enviar Registro Para Revisión
           </button>
         </form>
       </div>
