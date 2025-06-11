@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import axiosInstance from "../utils/axiosInstance";
 import "../styles/WasteRegistry.css";
+import { Unity, useUnityContext } from "react-unity-webgl";
+import UnityComponent from "../pages/UnityComponent"; 
 
 const type = [
   'Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa...',
@@ -341,6 +343,9 @@ export default function WasteRegistry() {
     if (!isoString) return "";
     return isoString.slice(0, 10);
   };
+    const [puntaje, Setpuntaje] = useState(0); 
+  const [max, Setmax] = useState(0);
+  const [coches, Setcoches] = useState(0);
 
   const [formData, setFormData] = useState({
     entry_date: null,
@@ -358,12 +363,53 @@ export default function WasteRegistry() {
     chemicals: [],
     responsible: null,
   });
+    const verificarMaxPuntaje = async () => {
+    try {
+      const userId = localStorage.getItem("username");
+      const res = await axiosInstance.get(`/juego/check-max/${userId}`);
+      if (res.data.isMax) {
+        Setmax(1);
+      } else {
+        Setmax(0);
+      }
+    } catch (error) {
+      console.error("Error al verificar si es el máximo:", error.response?.data || error.message);
+    }
+  };
 
   const [mappingIndex] = useState(0);
   const [hasInitializedDefaults, setHasInitializedDefaults] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type: inputType, checked } = e.target;
+    const { name, value, type, checked } = e.target;
+    Setpuntaje((prev) => prev + 1);
+    console.log(coches)
+    console.log(puntaje)
+    if (inputType === "checkbox") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: checked
+          ? [...prev[name], value]
+          : prev[name].filter((q) => q !== value),
+      }));
+    } else if (inputType === "number") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value === "" ? "" : Number(value),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+    const handleChanges = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    console.log(coches)
+    console.log(puntaje)
     if (inputType === "checkbox") {
       setFormData((prev) => ({
         ...prev,
@@ -453,6 +499,8 @@ export default function WasteRegistry() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    Setcoches((prev) => prev + 1);        
+    Setpuntaje(0);  
 
     try {
       if (id) {
@@ -489,6 +537,33 @@ export default function WasteRegistry() {
       console.error("Error al guardar:", error);
     }
   };
+    const handleGuardarPuntaje = async () => {
+    try {
+      const userId = localStorage.getItem("username"); // o el id real
+      const response = await axiosInstance.put(
+        `/juego/update/${userId}`,  // ID en la URL
+        { puntaje: coches }        // Body con datos a actualizar
+      );
+      console.log("Puntaje guardado:", response.data);
+      await verificarMaxPuntaje();
+    } catch (error) {
+      console.error("Error al guardar puntaje:", error.response?.data || error.message);
+    }
+  };
+    const aumentarPuntaje = () => {
+    Setpuntaje(prev => prev + 1);
+    console.log(puntaje)
+  };
+  const resetPuntaje = () => {
+    Setpuntaje(prev => 0);
+  }
+
+  const aumentarCoches = () => {
+    console.log(puntaje)
+    
+      Setcoches(prev => prev + 1);
+    
+  };
 
 
   return (
@@ -496,6 +571,17 @@ export default function WasteRegistry() {
       <Navbar />
       <div className="waste-registry-container">
         <h2>Bitácora de Residuos Peligrosos</h2>
+        <div style={{ width: '500px', height: '180px', overflow: 'hidden', position: 'relative', left: '50px' }}>
+          <div style={{ transform: 'translateX(-160px) translateY(-250px)' }}>
+          <UnityComponent puntaje={puntaje} coches={coches} max={max} />
+
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '20px', margin: '20px 0', justifyContent: 'center' }}>
+          <button onClick={handleGuardarPuntaje} className="guardar-btn">
+  Guardar Puntaje
+</button>
+</div>
 
         <form className="waste-registry-form" onSubmit={handleSubmit}>
           <div>
