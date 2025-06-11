@@ -3,33 +3,35 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import axiosInstance from "../utils/axiosInstance";
 import "../styles/WasteRegistry.css";
+import { Unity, useUnityContext } from "react-unity-webgl";
+import UnityComponent from "../pages/UnityComponent"; 
 
 const type = [
-  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa provenientes de actividades de limpieza, operación y mantenimiento",
-  "Plásticos contaminados con aceite hidráulico y pintura provenientes de actividades de limpieza y operación",
-  "Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías",
-  "Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello",
-  "Tambos vacíos plásticos contaminados con limpiadores con base de hidróxido de potasio",
-  "Lodos de fosfatizado proveniente de la lavadora de fosfatizado",
-  "Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello",
-  "Contenedores vacíos plásticos contaminados de pintura de aceite y aceite hidráulico",
-  "Aceite gastado proveniente de los mantenimientos realizados a los equipos",
-  "Solventes mezclados con base de thinner provenientes de las actividades de limpieza y/o los mantenimientos realizados a los equipos",
-  "Totes contaminados plásticos con aceite hidráulico",
-  "Agua contaminada con pintura proveniente de la aplicación a las carrocerías",
-  "Filtros contaminados con pigmentos y agua provenientes de la planta tratadora de aguas residuales",
-  "Sello gastado: proveniente de la aplicación de sellos a carcazas",
-  "Residuos no anatómicos: algodón, gasas, vendas, sábanas, guantes provenientes de curaciones",
-  "Objetos punzocortantes provenientes de procedimientos médicos: lancetas, agujas, bisturís",
-  "Pilas alcalinas",
-  "Baterías de equipos automotores",
-  "Lodos de clara provenientes de residuos de casetas de pintura",
-  "Rebaba y eslinga metálica impregnada con aceite proveniente del mantenimiento a troqueles",
-  "Lámparas fluorescentes",
-  "Filtros contaminados con pigmentos y agua provenientes de la planta de pintura",
-  "Contenedores vacíos metálicos de gases refrigerantes",
-  "Catalizadores gastados de equipos automotores",
-  "Baterías automotrices de metal litio"
+  'Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa...',
+  'Plásticos contaminados con aceite hidráulico y pintura...',
+  'Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías',
+  'Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello',
+  'Tambos vacíos plásticos contaminados limpiadores con base de hidróxido de potasio',
+  'Lodos de Fosfatizado proveniente de la lavadora de fosfatizado',
+  'Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello',
+  'Contenedores vacíos plásticos contaminados de pintura de aceite y aceite hidráulico',
+  'Aceite Gastado proveniente de mantenimientos',
+  'Solventes mezclados con base thinner',
+  'Totes contaminados plásticos con aceite hidráulico',
+  'Agua contaminada con pintura',
+  'Filtros contaminados con pigmentos y agua (Planta tratadora)',
+  'Sello gastado de aplicación a carcazas',
+  'Residuos no anatómicos de curaciones',
+  'Objetos punzocortantes médicos',
+  'Pilas alcalinas',
+  'Baterías de equipos automotores',
+  'Lodos de clara (residuos casetas pintura)',
+  'Rebaba y eslinga metálica impregnada con aceite',
+  'Lámparas fluorescentes',
+  'Filtros contaminados con pigmentos y agua (Planta pintura)',
+  'Contenedores metálicos de gases refrigerantes',
+  'Catalizadores gastados de equipos automotores',
+  'Baterías automotrices de litio metálico'
 ];
 const contenedores = ['Paca', 'Pieza', 'Tambo', 'Tarima', 'Tote'];
 const areas = ['Assembly', 'HO', 'Paint', 'PTAR', 'Stamping', 'Utility', 'Vendors', 'Welding'];
@@ -45,14 +47,13 @@ const responsible = ['Yamileth Cuellar'];
 
 
 const defaultValuesMap = {
-  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa provenientes de actividades de limpieza, operación y mantenimiento": [
+  "Trapos, guantes y textiles contaminados con aceite hidráulico, pintura, thinner y grasa...": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Geocycle México, S.A. de C.V.",
       art71: "Co-procesamiento",
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -63,28 +64,25 @@ const defaultValuesMap = {
     }
   ],
 
-  "Plásticos contaminados con aceite hidráulico y pintura provenientes de actividades de limpieza y operación":  {
+  "Plásticos contaminados con aceite hidráulico y pintura...": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. de C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Geocycle México, S.A. de C.V.",
-    art71: "Co-procesamiento",
-    chemicals: ['T']
+    art71: "Co-procesamiento"
   },
 
   "Papel contaminado con pintura proveniente de la actividad de retoque de carrocerías": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Geocycle México, S.A. de C.V.",
-    art71: "Co-procesamiento",
-    chemicals: ['T']
+    art71: "Co-procesamiento"
   },
 
   "Tambos vacíos metálicos contaminados con aceite hidráulico, líquidos para frenos y sello": {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "BARRILES METALICOS S.A. de C.V.",
-    art71: "Reciclaje",
-    chemicals: ['T']
+    art71: "Reciclaje"
   },
 
   "Tambos vacíos plásticos contaminados limpiadores con base de hidróxido de potasio": [
@@ -93,8 +91,7 @@ const defaultValuesMap = {
       reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
       aut_semarnat: "19-I-001D-16",
       reason_destination: "BARRILES METALICOS S.A. de C.V.",
-      art71: "Reciclaje",
-      chemicals: ['T']
+      art71: "Reciclaje"
     },
 
     {
@@ -118,8 +115,7 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "Sociedad Ecológica Mexicana del Norte SA",
-    art71: "Confinamiento",
-    chemicals: ['C','T']
+    art71: "Confinamiento"
   },
 
   "Contenedores vacíos metálicos contaminados de pintura de aceite, aceite hidráulico y sello": [
@@ -129,7 +125,6 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV ",
       art71: "Confinamiento",
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -137,7 +132,6 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-009-D-18",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV",
       art71: "Confinamiento",
-      chemicals: ['T']
     }
   ],
 
@@ -145,18 +139,16 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
-    art71: "Confinamiento",
-    chemicals: ['T']
+    art71: "Confinamiento"
   },
   
-  "Aceite gastado proveniente de los mantenimientos realizados a los equipos": [
+  "Aceite Gastado proveniente de mantenimientos": [
     {
       // Option 1:
       reason_art71: "LAURA MIREYA NAVARRO CEPEDA ",
       aut_semarnat: "19-I-001D-16",
       reason_destination: "MAQUILADORA DE LUBRICANTES S.A. DE C.V.",
       art71: ["Reciclaje", "Co-procesamiento"],
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -167,14 +159,13 @@ const defaultValuesMap = {
     }
   ],
 
-  "Solventes mezclados con base de thinner provenientes de las actividades de limpieza y/o los mantenimientos realizados a los equipos": [
+  "Solventes mezclados con base thinner": [
     {
       // Option 1:
       reason_art71: "CONDUGAS DEL NORESTE, S.A DE C.V",
       aut_semarnat: "19-I-031D-19",
       reason_destination: "ECOQUIM S.A DE C.V",
       art71: "Reciclaje",
-      chemicals: ['T', 'I']
     },
     {
       // Option 2:
@@ -189,17 +180,16 @@ const defaultValuesMap = {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "BARRILES METALICOS S.A. de C.V.",
-    art71: "Reciclaje",
-    chemicals: ['T']
+    art71: "Reciclaje"
   },
 
-  "Agua contaminada con pintura proveniente de la aplicación a las carrocerías": [{
+  "Agua contaminada con pintura": [
+    {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "AQUAREC, SAPI de CV",
       art71: "Co-procesamiento",
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -210,22 +200,20 @@ const defaultValuesMap = {
     }
   ],
 
-  "Filtros contaminados con pigmentos y agua provenientes de la planta tratadora de aguas residuales": {
+  "Filtros contaminados con pigmentos y agua (Planta tratadora)": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
-    art71: "Co-procesamiento",
-    chemicals: ['T']
+    art71: "Co-procesamiento"
   },
 
-  "Sello gastado: proveniente de la aplicación de sellos a carcazas": [
+  "Sello gastado de aplicación a carcazas": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Geocycle México, S.A. de C.V.", "Sociedad Ecológica Mexicana del Norte SA"],
       art71: ["Co-procesamiento", "Confinamiento"],
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -236,20 +224,18 @@ const defaultValuesMap = {
     }
   ],
 
-  "Residuos no anatómicos: algodón, gasas, vendas, sábanas, guantes provenientes de curaciones": {
+  "Residuos no anatómicos de curaciones": {
     reason_art71: "C. JAIME ISAAC MORENO VILLAREAL",
     aut_semarnat: "5-27-PS-I-316D-11-2017",
     reason_destination: "Roberto Arturo Muñoz del Río",
-    art71: "Destrucción Térmica",
-    chemicals: ['M']
+    art71: "Destrucción Térmica"
   },
 
-  "Objetos punzocortantes provenientes de procedimientos médicos: lancetas, agujas, bisturís": {
+  "Objetos punzocortantes médicos": {
     reason_art71: "C. JAIME ISAAC MORENO VILLAREAL",
     aut_semarnat: "5-27-PS-I-316D-11-2017",
     reason_destination: "Roberto Arturo Muñoz del Río",
-    art71: "Destrucción Térmica",
-    chemicals: ['M']
+    art71: "Destrucción Térmica"
   },
 
   "Pilas alcalinas": [
@@ -259,7 +245,6 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Sociedad Ecológica Mexicana del Norte SA",
       art71: "Confinamiento",
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -274,24 +259,21 @@ const defaultValuesMap = {
     reason_art71: "LAURA MIREYA NAVARRO CEPEDA",
     aut_semarnat: "19-I-001D-16",
     reason_destination: "ELÉCTRICA AUTOMOTRIZ OMEGA, SA de CV",
-    art71: "Reciclaje",
-    chemicals: ['C','T']
+    art71: "Reciclaje"
   },
 
-  "Lodos de clara provenientes de residuos de casetas de pintura": {
+  "Lodos de clara (residuos casetas pintura)": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)",
-    art71: "Co-procesamiento",
-    chemicals: ['T']
+    art71: "Co-procesamiento"
   },
 
-  "Rebaba y eslinga metálica impregnada con aceite proveniente del mantenimiento a troqueles": {
+  "Rebaba y eslinga metálica impregnada con aceite": {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
-    art71: "Confinamiento",
-    chemicals: ['T']
+    art71: "Confinamiento"
   },
 
   "Lámparas Fluorescentes": [
@@ -301,7 +283,6 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
       art71: ["Confinamiento", "Reciclaje"],
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -312,14 +293,13 @@ const defaultValuesMap = {
     }
   ],
 
-  "Filtros contaminados con pigmentos y agua provenientes de la planta de pintura": [
+  "Filtros contaminados con pigmentos y agua (Planta pintura)": [
     {
       // Option 1:
       reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
       aut_semarnat: "19-I-030-D-19",
       reason_destination: ["Geocycle México, S.A. de C.V.", "PRO AMBIENTE, S.A. de C.V. (Planta Noreste)"],
       art71: "Confinamiento",
-      chemicals: ['T']
     },
     {
       // Option 2:
@@ -337,7 +317,6 @@ const defaultValuesMap = {
       aut_semarnat: "19-I-030-D-19",
       reason_destination: "Veolia Soluciones Industriales México, SA de CV",
       art71: "Confinamiento",
-      chemicals: ['C','T']
     },
     {
       // Option 2:
@@ -352,13 +331,9 @@ const defaultValuesMap = {
     reason_art71: "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.",
     aut_semarnat: "19-I-030D-19",
     reason_destination: ["Veolia Soluciones Industriales México, SA de CV", "Sociedad Ecológica Mexicana del Norte SA"],
-    art71: "Confinamiento",
-    chemicals: ['C','T']
+    art71: "Confinamiento"
   },
-
-  "Baterías automotrices de metal litio": {
-    chemicals: ['C','T']
-  }
+  
 };
 
 
@@ -368,6 +343,9 @@ export default function WasteRegistry() {
     if (!isoString) return "";
     return isoString.slice(0, 10);
   };
+    const [puntaje, Setpuntaje] = useState(0); 
+  const [max, Setmax] = useState(0);
+  const [coches, Setcoches] = useState(0);
 
   const [formData, setFormData] = useState({
     entry_date: null,
@@ -385,31 +363,52 @@ export default function WasteRegistry() {
     chemicals: [],
     responsible: null,
   });
+    const verificarMaxPuntaje = async () => {
+    try {
+      const userId = localStorage.getItem("username");
+      const res = await axiosInstance.get(`/juego/check-max/${userId}`);
+      if (res.data.isMax) {
+        Setmax(1);
+      } else {
+        Setmax(0);
+      }
+    } catch (error) {
+      console.error("Error al verificar si es el máximo:", error.response?.data || error.message);
+    }
+  };
 
   const [mappingIndex] = useState(0);
   const [hasInitializedDefaults, setHasInitializedDefaults] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type: inputType, checked } = e.target;
-    if (inputType === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: checked
-          ? [...prev[name], value]
-          : prev[name].filter((q) => q !== value),
-      }));
-    } else if (inputType === "number") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value === "" ? "" : Number(value),
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    const { name, value, type, checked } = e.target;
+    Setpuntaje((prev) => prev + 1);
+    console.log(coches)
+    console.log(puntaje)
   };
+
+    const handleChanges = (e) => {
+      const { name, value, type: inputType, checked } = e.target;
+      if (inputType === "checkbox") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: checked
+            ? [...prev[name], value]
+            : prev[name].filter((q) => q !== value),
+        }));
+      } else if (inputType === "number") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value === "" ? "" : Number(value),
+        }));
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
+    };
+    
 
   const formType = formData.type;
 
@@ -424,10 +423,10 @@ export default function WasteRegistry() {
         setFormData((prev) => {
           const update = {};
           Object.entries(defaults).forEach(([key, value]) => {
-            if (!prev[key] || prev[key] === "" || (Array.isArray(value) && prev[key].length === 0)) {
-              update[key] = value; // guarda el arreglo completo si es `chemicals`
+            if (!prev[key] || prev[key] === "") {
+              update[key] = Array.isArray(value) ? value[0] : value;
             }
-          });          
+          });
 
 
           return { ...prev, ...update };
@@ -480,6 +479,8 @@ export default function WasteRegistry() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    Setcoches((prev) => prev + 1);        
+    Setpuntaje(0);  
 
     try {
       if (id) {
@@ -516,6 +517,33 @@ export default function WasteRegistry() {
       console.error("Error al guardar:", error);
     }
   };
+    const handleGuardarPuntaje = async () => {
+    try {
+      const userId = localStorage.getItem("username"); // o el id real
+      const response = await axiosInstance.put(
+        `/juego/update/${userId}`,  // ID en la URL
+        { puntaje: coches }        // Body con datos a actualizar
+      );
+      console.log("Puntaje guardado:", response.data);
+      await verificarMaxPuntaje();
+    } catch (error) {
+      console.error("Error al guardar puntaje:", error.response?.data || error.message);
+    }
+  };
+    const aumentarPuntaje = () => {
+    Setpuntaje(prev => prev + 1);
+    console.log(puntaje)
+  };
+  const resetPuntaje = () => {
+    Setpuntaje(prev => 0);
+  }
+
+  const aumentarCoches = () => {
+    console.log(puntaje)
+    
+      Setcoches(prev => prev + 1);
+    
+  };
 
 
   return (
@@ -523,6 +551,17 @@ export default function WasteRegistry() {
       <Navbar />
       <div className="waste-registry-container">
         <h2>Bitácora de Residuos Peligrosos</h2>
+        <div style={{ width: '500px', height: '180px', overflow: 'hidden', position: 'relative', left: '50px' }}>
+          <div style={{ transform: 'translateX(-160px) translateY(-250px)' }}>
+          <UnityComponent puntaje={puntaje} coches={coches} max={max} />
+
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '20px', margin: '20px 0', justifyContent: 'center' }}>
+          <button onClick={handleGuardarPuntaje} className="guardar-btn">
+  Guardar Puntaje
+</button>
+</div>
 
         <form className="waste-registry-form" onSubmit={handleSubmit}>
           <div>
@@ -531,7 +570,7 @@ export default function WasteRegistry() {
               type="date"
               name="entry_date"
               value={formatDate(formData.entry_date)}
-              onChange={handleChange}
+              onChange={handleChanges}
             />
           </div>
           <div>
@@ -549,10 +588,10 @@ export default function WasteRegistry() {
           <div>
             <label>Cantidad (toneladas):</label>
             <input
-              type="number" min={1}
+              type="number"
               name="amount"
               value={formData.amount}
-              onChange={handleChange}
+              onChange={handleChanges}
             />
           </div>
           <div>
@@ -560,7 +599,7 @@ export default function WasteRegistry() {
             <select
               name="container"
               value={formData.container}
-              onChange={handleChange}
+              onChange={handleChanges}
             >
               <option value="">Seleccione tipo de contenedor</option>
               {contenedores.map((c, i) => (
@@ -583,7 +622,7 @@ export default function WasteRegistry() {
           </div>
           <div>
             <label>Artículo 71:</label>
-            <select name="art71" value={formData.art71} onChange={handleChange}>
+            <select name="art71" value={formData.art71} onChange={handleChanges}>
               <option value="">Seleccione opción</option>
               {art17.map((a, i) => (
                 <option key={i} value={a}>
@@ -627,7 +666,7 @@ export default function WasteRegistry() {
             <select
               name="aut_SCT"
               value={formData.aut_SCT}
-              onChange={handleChange}
+              onChange={handleChanges}
             >
               <option value="">Seleccione autorización</option>
               {aut_SCT.map((s, i) => (
@@ -706,5 +745,5 @@ export default function WasteRegistry() {
         </form>
       </div>
     </div>
-  );
-}
+  )
+};
