@@ -56,22 +56,22 @@ export default function Navbar() {
 
       <div className="navbar-routes">
         <div className="pages"> 
-          <Link to="/waste-registry">Registry</Link>
-          <Link to="/waste-history">History</Link>
-          <Link to="/waste-dashboard">Dashboards</Link>
+          <Link to="/waste-registry">Registros</Link>
+          <Link to="/waste-history">Historial</Link>
+          <Link to="/waste-dashboard">Graficas</Link>
           
           {loggedUser.username === "01234644" && (
-            <Link to="/waste-referrals">Referrals</Link>
+            <Link to="/waste-referrals">Remisiones</Link>
           )}
 
           
           {loggedUser.username === "01234644" && (
-            <Link to="/user-info">Account</Link>
+            <Link to="/user-info">Cuenta</Link>
           )}
 
           
           {loggedUser.username === "01234644" && (
-            <Link to="/pending-requests">Requests</Link>
+            <Link to="/pending-requests">Requisitos</Link>
           )}
         </div>
 
