@@ -522,7 +522,7 @@ export default function WasteRegistry() {
           <div>
             <label>Cantidad (toneladas):</label>
             <input
-              type="number"
+              type="number" min={1}
               name="amount"
               value={formData.amount}
               onChange={handleChange}
