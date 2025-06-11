@@ -2,8 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import axiosInstance from "../utils/axiosInstance";
 import "../styles/WasteReferrals.css";
+import html2pdf from "html2pdf.js";
+
+
+
+
 
 export default function WasteReferrals() {
+  const handleGeneratePDF = () => {
+    const element = formRef.current;
+    const opt = {
+      margin: 0.5,
+      filename: 'referral.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  };
   const [eligibleRecords, setEligibleRecords] = useState([]);
   const [selectedRecords, setSelectedRecords] = useState([]);
   const [groupedSums, setGroupedSums] = useState([]);
@@ -11,9 +27,11 @@ export default function WasteReferrals() {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({});
   const videoRef = useRef(null);
+  const formRef = useRef();
+
 
   useEffect(() => {
-    // Limpia los seleccionados al cargar el componente o vista
+    
     const clearSelections = async () => {
       await axiosInstance.put('/waste/clear-selected');
     };
@@ -96,7 +114,6 @@ export default function WasteReferrals() {
 
   const handleEdit = async (record) => {
     try {
-      // Asegurar que el registro esté marcado como seleccionado
       await axiosInstance.put(`/waste/select/${record.id}`, {selected: true});
       
       setIsEditing(true);
@@ -140,20 +157,6 @@ export default function WasteReferrals() {
     'ECO SERVICIOS PARA GAS S.A. DE CV.',
     'CONDUGAS DEL NORESTE S.A. DE C.V.'
   ];
-
-  const placasPorEmpresa = {
-    "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.": [
-      "059FD2", "427FD2", "27AP8C", "28AP8C", "95AH3U", "43AK9M"
-    ],
-    "LAURA MIREYA NAVARRO CEPEDA": [
-      "17AY4B", "94BP9P"
-    ],
-    "CONDUGAS DEL NORESTE S.A. DE C.V.": [
-      "78AX8Z", "777EZ3"
-    ]
-    // ECO SERVICIOS no tiene placas default entonces recibe text
-  };
-  
 
   return (
     <div className="waste-referrals-screen">
@@ -261,7 +264,7 @@ export default function WasteReferrals() {
         </div>
 
         {isEditing && (
-          <div className="edit-referral-form">
+          <div className="edit-referral-form" ref={formRef}>
             <h2>Edit Referral</h2>
             <div className="grouped-records-section">
               <h2>Grouped Residue Types and Amounts</h2>
@@ -295,52 +298,24 @@ export default function WasteReferrals() {
               <input type="text" value={editData.reason_art71} disabled />
               <label>Destino:</label>
               <input type="text" value={editData.destino || ""} onChange={(e) => setEditData({ ...editData, destino: e.target.value })} />
-
-              <div className="fields-peso">
-                <label>Tara:</label>
-                <input type="text" value={editData.tara || ""} onChange={(e) => setEditData({ ...editData, tara: e.target.value })}/>
-
-                <label>Peso Bruto:</label>
-                <input type="text" value={editData.peso_bruto || ""} onChange={(e) => setEditData({ ...editData, peso_bruto: e.target.value })}/>
-                  
-                  <label>Peso Neto:</label>
-                    <input
-                      type="text"
-                      value={ editData.tara && editData.peso_bruto ? (parseFloat(editData.peso_bruto) - parseFloat(editData.tara)).toFixed(2): ""}
-                      readOnly />
-                </div>
-              
               <label>Contenedor:</label>
               <input type="text" value={editData.contenedor || ""} onChange={(e) => setEditData({ ...editData, contenedor: e.target.value })} />
               <label>Placas:</label>
-                {placasPorEmpresa[editData.reason_art71] ? (
-                  <select
-                    value={editData.placas || ""}
-                    onChange={(e) => setEditData({ ...editData, placas: e.target.value })}
-                  >
-                    <option value="">Seleccione placas</option>
-                    {placasPorEmpresa[editData.reason_art71].map((placa, index) => (
-                      <option key={index} value={placa}>{placa}</option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type="text"
-                    value={editData.placas || ""}
-                    onChange={(e) => setEditData({ ...editData, placas: e.target.value })}
-                  />
-                )}
+              <input type="text" value={editData.placas || ""} onChange={(e) => setEditData({ ...editData, placas: e.target.value })} />
               <label>Número Económico:</label>
               <input type="text" value={editData.num_econ || ""} onChange={(e) => setEditData({ ...editData, num_econ: e.target.value })} />
               <label>Firma:</label>
               <input type="text" value={editData.firma || ""} onChange={(e) => setEditData({ ...editData, firma: e.target.value })} />
-              <button type="submit" className="create-btn">Create Referral</button>
+              <button type="submit" className="create-btn">guardar</button>
+  
+
             </form>
+            <button type="button" onClick={handleGeneratePDF}>generar PDF</button>
+            
           </div>
         )}
 
     
       </div>
     </div>
-  );
-}
+  )}
