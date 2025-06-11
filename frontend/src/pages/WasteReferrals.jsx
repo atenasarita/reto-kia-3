@@ -117,6 +117,11 @@ export default function WasteReferrals() {
         hora_salida: editData.hora_salida,
         compañia: editData.reason_art71,
         destino: editData.destino,
+        tara: editData.tara,
+        peso_bruto: editData.peso_bruto,
+        peso_neto: editData.tara && editData.peso_bruto
+        ? (parseFloat(editData.peso_bruto) - parseFloat(editData.tara)).toFixed(2)
+        : "",
         contenedor: editData.contenedor,
         placas: editData.placas,
         num_econ: editData.num_econ,

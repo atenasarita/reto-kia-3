@@ -7,6 +7,8 @@ exports.createReferral = async (data) => {
     hora_salida,
     compañia,
     destino,
+    tara,
+    peso_bruto,
     contenedor,
     placas,
     num_econ,

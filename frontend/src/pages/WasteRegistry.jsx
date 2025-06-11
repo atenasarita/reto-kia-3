@@ -369,6 +369,8 @@ const defaultValuesMap = {
 
 export default function WasteRegistry() {
   const { id } = useParams(); // si hay ID, estamos editando
+  const isEditing = Boolean(id);
+
   const formatDate = (isoString) => {
     if (!isoString) return "";
     return isoString.slice(0, 10);
@@ -581,16 +583,35 @@ export default function WasteRegistry() {
       <Navbar />
       <div className="waste-registry-container">
         <h2>Bitácora de Residuos Peligrosos</h2>
-        <div style={{ width: '500px', height: '180px', overflow: 'hidden', position: 'relative', left: '400px' }}>
-          <div style={{ transform: 'translateX(-160px) translateY(-250px)' }}>
-          <UnityComponent puntaje={puntaje} coches={coches} max={max} />
 
+        {!isEditing && (
+        <>
+          <div
+            style={{
+              width: "500px",
+              height: "180px",
+              overflow: "hidden",
+              position: "relative",
+              left: "400px",
+            }}
+          >
+            <div style={{ transform: "translateX(-160px) translateY(-250px)" }}>
+              <UnityComponent puntaje={puntaje} coches={coches} max={max} />
+            </div>
           </div>
-        </div>
-        <div style={{ display: 'flex', gap: '20px', margin: '20px 0', justifyContent: 'center' }}>
-      </div>
 
-        <form className="waste-registry-form" onSubmit={handleSubmit}>
+          <div
+            style={{
+              display: "flex",
+              gap: "20px",
+              margin: "20px 0",
+              justifyContent: "center",
+            }}
+          ></div>
+        </>
+      )}
+
+       <form className="waste-registry-form" onSubmit={handleSubmit}>
           <div>
             <label>Fecha de ingreso:</label>
             <input
@@ -620,6 +641,7 @@ export default function WasteRegistry() {
               value={formData.amount}
               onChange={handleChanges}
             />
+          
           </div>
           <div>
             <label>Tipo de contenedor:</label>
