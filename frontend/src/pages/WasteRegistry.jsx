@@ -385,50 +385,30 @@ export default function WasteRegistry() {
     Setpuntaje((prev) => prev + 1);
     console.log(coches)
     console.log(puntaje)
-    if (inputType === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: checked
-          ? [...prev[name], value]
-          : prev[name].filter((q) => q !== value),
-      }));
-    } else if (inputType === "number") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value === "" ? "" : Number(value),
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
   };
 
     const handleChanges = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    console.log(coches)
-    console.log(puntaje)
-    if (inputType === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: checked
-          ? [...prev[name], value]
-          : prev[name].filter((q) => q !== value),
-      }));
-    } else if (inputType === "number") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value === "" ? "" : Number(value),
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
+      const { name, value, type: inputType, checked } = e.target;
+      if (inputType === "checkbox") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: checked
+            ? [...prev[name], value]
+            : prev[name].filter((q) => q !== value),
+        }));
+      } else if (inputType === "number") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value === "" ? "" : Number(value),
+        }));
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
+    };
+    
 
   const formType = formData.type;
 
@@ -590,7 +570,7 @@ export default function WasteRegistry() {
               type="date"
               name="entry_date"
               value={formatDate(formData.entry_date)}
-              onChange={handleChange}
+              onChange={handleChanges}
             />
           </div>
           <div>
@@ -611,7 +591,7 @@ export default function WasteRegistry() {
               type="number"
               name="amount"
               value={formData.amount}
-              onChange={handleChange}
+              onChange={handleChanges}
             />
           </div>
           <div>
@@ -619,7 +599,7 @@ export default function WasteRegistry() {
             <select
               name="container"
               value={formData.container}
-              onChange={handleChange}
+              onChange={handleChanges}
             >
               <option value="">Seleccione tipo de contenedor</option>
               {contenedores.map((c, i) => (
@@ -642,7 +622,7 @@ export default function WasteRegistry() {
           </div>
           <div>
             <label>Artículo 71:</label>
-            <select name="art71" value={formData.art71} onChange={handleChange}>
+            <select name="art71" value={formData.art71} onChange={handleChanges}>
               <option value="">Seleccione opción</option>
               {art17.map((a, i) => (
                 <option key={i} value={a}>
@@ -686,7 +666,7 @@ export default function WasteRegistry() {
             <select
               name="aut_SCT"
               value={formData.aut_SCT}
-              onChange={handleChange}
+              onChange={handleChanges}
             >
               <option value="">Seleccione autorización</option>
               {aut_SCT.map((s, i) => (
@@ -765,5 +745,5 @@ export default function WasteRegistry() {
         </form>
       </div>
     </div>
-  );
-}
+  )
+};
