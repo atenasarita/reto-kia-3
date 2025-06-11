@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
-import "../styles/WasteReferrals.css";
+import "../styles/Manifiestos.css";
 
 export default function Manifiestos() {
   const [referrals, setReferrals] = useState([]);
