@@ -141,6 +141,20 @@ export default function WasteReferrals() {
     'CONDUGAS DEL NORESTE S.A. DE C.V.'
   ];
 
+  const placasPorEmpresa = {
+    "SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.": [
+      "059FD2", "427FD2", "27AP8C", "28AP8C", "95AH3U", "43AK9M"
+    ],
+    "LAURA MIREYA NAVARRO CEPEDA": [
+      "17AY4B", "94BP9P"
+    ],
+    "CONDUGAS DEL NORESTE S.A. DE C.V.": [
+      "78AX8Z", "777EZ3"
+    ]
+    // ECO SERVICIOS no tiene placas default entonces recibe text
+  };
+  
+
   return (
     <div className="waste-referrals-screen">
       <Navbar />
@@ -281,10 +295,41 @@ export default function WasteReferrals() {
               <input type="text" value={editData.reason_art71} disabled />
               <label>Destino:</label>
               <input type="text" value={editData.destino || ""} onChange={(e) => setEditData({ ...editData, destino: e.target.value })} />
+
+              <div className="fields-peso">
+                <label>Tara:</label>
+                <input type="text" value={editData.tara || ""} onChange={(e) => setEditData({ ...editData, tara: e.target.value })}/>
+
+                <label>Peso Bruto:</label>
+                <input type="text" value={editData.peso_bruto || ""} onChange={(e) => setEditData({ ...editData, peso_bruto: e.target.value })}/>
+                  
+                  <label>Peso Neto:</label>
+                    <input
+                      type="text"
+                      value={ editData.tara && editData.peso_bruto ? (parseFloat(editData.peso_bruto) - parseFloat(editData.tara)).toFixed(2): ""}
+                      readOnly />
+                </div>
+              
               <label>Contenedor:</label>
               <input type="text" value={editData.contenedor || ""} onChange={(e) => setEditData({ ...editData, contenedor: e.target.value })} />
               <label>Placas:</label>
-              <input type="text" value={editData.placas || ""} onChange={(e) => setEditData({ ...editData, placas: e.target.value })} />
+                {placasPorEmpresa[editData.reason_art71] ? (
+                  <select
+                    value={editData.placas || ""}
+                    onChange={(e) => setEditData({ ...editData, placas: e.target.value })}
+                  >
+                    <option value="">Seleccione placas</option>
+                    {placasPorEmpresa[editData.reason_art71].map((placa, index) => (
+                      <option key={index} value={placa}>{placa}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={editData.placas || ""}
+                    onChange={(e) => setEditData({ ...editData, placas: e.target.value })}
+                  />
+                )}
               <label>Número Económico:</label>
               <input type="text" value={editData.num_econ || ""} onChange={(e) => setEditData({ ...editData, num_econ: e.target.value })} />
               <label>Firma:</label>

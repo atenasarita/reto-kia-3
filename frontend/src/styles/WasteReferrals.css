@@ -160,7 +160,7 @@
     color: #333;
   }
   
-  .edit-referral-form input {
+  .edit-referral-form input, select{
     padding: 10px;
     border: 1px solid #aaa;
     border-radius: 8px;
@@ -180,7 +180,17 @@
   .create-btn:hover {
     background-color: #218838;
   }
-  
+
+  .fields-peso{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .fields-peso input{
+    width: 275px;
+    margin: 0 10px 0 10px;
+  }
+
   @media (max-width: 768px) {
     .waste-referrals-container {
       padding: 20px;
