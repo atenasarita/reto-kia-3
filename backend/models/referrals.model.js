@@ -35,7 +35,7 @@ exports.createReferral = async (data) => {
     [fecha, nombre_chofer, hora_salida, compañia, destino, tara, peso_bruto, peso_neto, contenedor, placas, num_econ, firma]
   );
 
-  await db.query(`UPDATE waste_records_test SET is_part_of_referral = TRUE WHERE is_selected = TRUE`);
+  await db.query(`UPDATE waste_records_test SET part_of_referral = $1 WHERE is_selected = TRUE`, [result.rows[0].id]);
   await db.query(`UPDATE waste_records_test SET exit_date = $1 WHERE is_selected = TRUE`, [fecha]);
 
  

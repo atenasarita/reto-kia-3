@@ -88,7 +88,7 @@ exports.getHazardousWasteByReason = async (reason) => {
 };
 
 exports.getAmountSumByReason = async (reason_art71) => {
-  const result = await db.query(`select SUM(amount) AS total, type from waste_records_test where reason_art71 ILIKE $1 AND is_selected = true AND is_part_of_referral = FALSE
+  const result = await db.query(`select SUM(amount) AS total, type from waste_records_test where reason_art71 ILIKE $1 AND is_selected = true AND part_of_referral = NULL
    GROUP BY type`,
   [`%${reason_art71}%`]
   );
@@ -99,7 +99,7 @@ exports.getAmountSumByReason = async (reason_art71) => {
 // Obtener residuos confirmados
 exports.getWasteForReferral = async (reason) => {
   const result = await db.query(
-    `SELECT * FROM waste_records_test WHERE is_part_of_referral = FALSE AND is_confirmed = TRUE AND reason_art71 = $1`,
+    `SELECT * FROM waste_records_test WHERE part_of_referral = NULL AND is_confirmed = TRUE AND reason_art71 = $1`,
     [reason]
   );
   return result.rows;
