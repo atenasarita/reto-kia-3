@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 
 export default function UnityComponent({ puntaje, coches, max}) {
-  const { unityProvider, sendMessage, isLoaded } = useUnityContext({
+  const { unityProvider, sendMessage, isLoaded, } = useUnityContext({
     loaderUrl: "unityf4/Build/unityf4.loader.js",
     dataUrl: "unityf4/Build/unityf4.data",
     frameworkUrl: "unityf4/Build/unityf4.framework.js",
     codeUrl: "unityf4/Build/unityf4.wasm",
   });
+  
 
   useEffect(() => {
     if (isLoaded) {

@@ -39,7 +39,7 @@ const areas = ['Assembly', 'HO', 'Paint', 'PTAR', 'Stamping', 'Utility', 'Vendor
 const art17 = ['Confinamiento', 'Co-procesamiento', 'Reciclaje'];
 const reason_art71 = ['LAURA MIREYA NAVARRO CEPEDA', 'SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.', 'ECO SERVICIOS PARA GAS S.A. DE CV.', 'CONDUGAS DEL NORESTE S.A. DE C.V.'];
 const aut_semarnat = ['19-I-030-D-19', '19-I-001-D-16', '19-I-009-D-18', '19-I-031-D-19'];
-const aut_SCT = ['1938SAI07062011230301029', '1938CNO08112011230301036', '1938ESG28112011230301000', '1938NACL13102022230303000', '1938NACL29052015073601001'];
+const aut_sct = ['1938SAI07062011230301029', '1938CNO08112011230301036', '1938ESG28112011230301000', '1938NACL13102022230303000', '1938NACL29052015073601001'];
 const reason_destination = ['BARRILES METALICOS S.A. de C.V.', 'SERVICIOS AMBIENTALES INTERNACIONALES S. DE RL. DE C.V.', 'ECO SERVICIOS PARA GAS S.A. DE CV.', 'ECOQUIM S.A. DE C.V.', 'MAQUILADORA DE LUBRICANTES S.A. DE C.V.', 'ELECTRICA AUTOMOTRIZ OMEGA S.A. DE C.V.', 'Geocycle México, S.A. de C.V.','Veolia Soluciones Industriales México, SA de CV','RETALSA SA de CV'];
 const aut_destination = ['19-V-62-16', '19-II-004-D-2020', '19-IV-69-16', '19-IV-21-18', '19-21-PS-V-04-94'];
 const chemicals = ['C', 'R', 'E', 'T', 'Te', 'Th', 'Tt', 'I', 'B', 'M'];
@@ -369,8 +369,6 @@ const defaultValuesMap = {
 
 export default function WasteRegistry() {
   const { id } = useParams(); // si hay ID, estamos editando
-  const isEditing = Boolean(id);
-
   const formatDate = (isoString) => {
     if (!isoString) return "";
     return isoString.slice(0, 10);
@@ -389,7 +387,7 @@ export default function WasteRegistry() {
     art71: null,
     reason_art71: null,
     aut_semarnat: null,
-    aut_SCT: null,
+    aut_sct: null,
     reason_destination: null,
     aut_destination: null,
     chemicals: [],
@@ -492,7 +490,7 @@ export default function WasteRegistry() {
           art71: data.art71 || "",
           reason_art71: data.reason_art71 || "",
           aut_semarnat: data.aut_semarnat || "",
-          aut_SCT: data.aut_sct || "",
+          aut_sct: data.aut_sct || "",
           reason_destination: data.reason_destination || "",
           aut_destination: data.aut_destination || "",
           responsible: data.responsible || "",
@@ -538,7 +536,7 @@ export default function WasteRegistry() {
         art71: "",
         reason_art71: "",
         aut_semarnat: "",
-        aut_SCT: "",
+        aut_sct: "",
         reason_destination: "",
         aut_destination: "",
         chemicals: [],
@@ -583,35 +581,16 @@ export default function WasteRegistry() {
       <Navbar />
       <div className="waste-registry-container">
         <h2>Bitácora de Residuos Peligrosos</h2>
+        <div style={{ width: '500px', height: '180px', overflow: 'hidden', position: 'relative', left: '400px' }}>
+          <div style={{ transform: 'translateX(-160px) translateY(-250px)' }}>
+          <UnityComponent puntaje={puntaje} coches={coches} max={max} />
 
-        {!isEditing && (
-        <>
-          <div
-            style={{
-              width: "500px",
-              height: "180px",
-              overflow: "hidden",
-              position: "relative",
-              left: "400px",
-            }}
-          >
-            <div style={{ transform: "translateX(-160px) translateY(-250px)" }}>
-              <UnityComponent puntaje={puntaje} coches={coches} max={max} />
-            </div>
           </div>
+        </div>
+        <div style={{ display: 'flex', gap: '20px', margin: '20px 0', justifyContent: 'center' }}>
+      </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              margin: "20px 0",
-              justifyContent: "center",
-            }}
-          ></div>
-        </>
-      )}
-
-       <form className="waste-registry-form" onSubmit={handleSubmit}>
+        <form className="waste-registry-form" onSubmit={handleSubmit}>
           <div>
             <label>Fecha de ingreso:</label>
             <input
@@ -641,7 +620,6 @@ export default function WasteRegistry() {
               value={formData.amount}
               onChange={handleChanges}
             />
-          
           </div>
           <div>
             <label>Tipo de contenedor:</label>
@@ -713,12 +691,12 @@ export default function WasteRegistry() {
           <div>
             <label>Autorización SCT:</label>
             <select
-              name="aut_SCT"
-              value={formData.aut_SCT}
+              name="aut_sct"
+              value={formData.aut_sct}
               onChange={handleChanges}
             >
               <option value="">Seleccione autorización</option>
-              {aut_SCT.map((s, i) => (
+              {aut_sct.map((s, i) => (
                 <option key={i} value={s}>
                   {s}
                 </option>
@@ -788,7 +766,7 @@ export default function WasteRegistry() {
             </select>
           </div>
 
-          <button type="submit" className="logwaste-submit-btn" onClick={handleGuardarPuntaje}>
+          <button type="submit" className="logwaste-submit-btn">
             Enviar Registro Para Revisión
           </button>
         </form>

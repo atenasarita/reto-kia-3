@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
+import ReferralCard from "../components/ReferralCard";
 import "../styles/Manifiestos.css";
 
 export default function Manifiestos() {
   const [referrals, setReferrals] = useState([]);
-  const [selectedReferral, setSelectedReferral] = useState(null);
-  const [wasteDetails, setWasteDetails] = useState([]);
-  const [groupedSummary, setGroupedSummary] = useState([]);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -33,20 +31,6 @@ export default function Manifiestos() {
     return () => video.removeEventListener("timeupdate", onTimeUpdate);
   }, []);
 
-  const handleViewDetail = async (referral) => {
-    try {
-      setSelectedReferral(referral);
-
-      const resWaste = await axiosInstance.get(`/waste/by-referral/${referral.id}`);
-      setWasteDetails(resWaste.data);
-
-      const resGroup = await axiosInstance.get(`/waste/summary/by-referral/${referral.id}`);
-      setGroupedSummary(resGroup.data);
-    } catch (err) {
-      console.error("Error al cargar detalles", err);
-    }
-  };
-
   return (
     <div className="waste-referrals-screen">
       <Navbar />
@@ -66,68 +50,8 @@ export default function Manifiestos() {
         <h1>Manifiestos</h1>
 
         {referrals.map((ref) => (
-          <div key={ref.id} className="remision-card">
-            <p><strong>Remisión:</strong> {ref.compañia} - {ref.fecha}</p>
-            <button className="select-btn" onClick={() => handleViewDetail(ref)}>Ver detalle</button>
-          </div>
+          <ReferralCard key={ref.id} referral={ref} />
         ))}
-
-        {selectedReferral && (
-          <div className="edit-referral-form">
-            <h2>Detalle de la Remisión</h2>
-            <p><strong>Chofer:</strong> {selectedReferral.nombre_chofer}</p>
-            <p><strong>Placas:</strong> {selectedReferral.placas}</p>
-            <p><strong>Contenedor:</strong> {selectedReferral.contenedor}</p>
-            <p><strong>Destino:</strong> {selectedReferral.destino}</p>
-            <p><strong>Empresa Transportista:</strong> {selectedReferral.compañia}</p>
-
-            <h3>Resumen de residuos</h3>
-            <table className="referrals-table">
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th>Cantidad Total (kg)</th>
-                  <th>Registros</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupedSummary.map((item, i) => (
-                  <tr key={i}>
-                    <td>{item.type}</td>
-                    <td>{item.total_amount}</td>
-                    <td>{item.count}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <h3>Residuos incluidos</h3>
-            <table className="referrals-table">
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th>Cantidad</th>
-                  <th>Contenedor</th>
-                  <th>CRETI</th>
-                  <th>Area</th>
-                </tr>
-              </thead>
-              <tbody>
-                {wasteDetails.map((r, i) => (
-                  <tr key={i}>
-                    <td>{r.type}</td>
-                    <td>{r.amount}</td>
-                    <td>{r.container}</td>
-                    <td>{r.chemicals?.join(", ")}</td>
-                    <td>{r.area}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <button className="create-btn">Generar Manifiesto</button>
-          </div>
-        )}
       </div>
     </div>
   );

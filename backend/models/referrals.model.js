@@ -56,3 +56,52 @@ exports.insertCantidadTipoReferral = async (referralId, tipo, cantidad) => {
     [referralId, tipo, cantidad]
   );
 };
+
+exports.generateManifestData = async (referralId) => {
+  // Primero obtenemos la lista de tipos de residuo
+  const tiposResiduos = await db.query(
+    `SELECT DISTINCT type AS tipo_residuo
+     FROM waste_records_test
+     WHERE part_of_referral = $1`,
+    [referralId]
+  );
+
+  for (const tipo of tiposResiduos.rows) {
+    // Insertamos una entrada base por tipo de residuo
+    const manifestResult = await db.query(
+      `INSERT INTO referral_manifest (referral_id, tipo_residuo)
+       VALUES ($1, $2) RETURNING id`,
+      [referralId, tipo.tipo_residuo]
+    );
+    const manifestId = manifestResult.rows[0].id;
+
+    // Para ese tipo de residuo, obtenemos los datos por contenedor
+    const containerData = await db.query(
+      `SELECT
+         container AS contenedor,
+         COUNT(*) AS registro_count,
+         SUM(amount) * 1000 AS total_kg,
+         ARRAY_AGG(DISTINCT unnest(chemicals)) AS chemicals
+       FROM waste_records_test
+       WHERE part_of_referral = $1 AND type = $2
+       GROUP BY container`,
+      [referralId, tipo.tipo_residuo]
+    );
+
+    // Insertamos cada contenedor asociado
+    for (const container of containerData.rows) {
+      await db.query(
+        `INSERT INTO referral_manifest_containers (
+          manifest_id, contenedor, total_kg, registro_count, chemicals
+        ) VALUES ($1, $2, $3, $4, $5)`,
+        [
+          manifestId,
+          container.contenedor,
+          container.total_kg,
+          container.registro_count,
+          container.chemicals,
+        ]
+      );
+    }
+  }
+};

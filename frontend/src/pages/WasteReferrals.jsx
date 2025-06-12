@@ -2,8 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import axiosInstance from "../utils/axiosInstance";
 import "../styles/WasteReferrals.css";
+import html2pdf from "html2pdf.js";
 
 export default function WasteReferrals() {
+  const handleGeneratePDF = () => {
+    const element = formRef.current;
+    const opt = {
+      margin: 0.5,
+      filename: 'referral.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  };
+
   const [eligibleRecords, setEligibleRecords] = useState([]);
   const [selectedRecords, setSelectedRecords] = useState([]);
   const [groupedSums, setGroupedSums] = useState([]);
@@ -11,6 +24,8 @@ export default function WasteReferrals() {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({});
   const videoRef = useRef(null);
+  const formRef = useRef(null);
+
 
   useEffect(() => {
     // Limpia los seleccionados al cargar el componente o vista
@@ -270,7 +285,7 @@ export default function WasteReferrals() {
         </div>
 
         {isEditing && (
-          <div className="edit-referral-form">
+          <div className="edit-referral-form" ref={formRef}>
             <h2>Datos de la remisión</h2>
             <div className="grouped-records-section">
               <h2>Descripción de Residuos Incluidos </h2>
@@ -343,12 +358,13 @@ export default function WasteReferrals() {
               <input type="text" value={editData.num_econ || ""} onChange={(e) => setEditData({ ...editData, num_econ: e.target.value })} />
               <label>Firma:</label>
               <input type="text" value={editData.firma || ""} onChange={(e) => setEditData({ ...editData, firma: e.target.value })} />
-              <button type="submit" className="create-btn">Generar Remisión</button>
-            </form>
-          </div>
-        )}
+              
+              <button type="button" className="create-btn" onClick={handleGeneratePDF}>Generar PDF</button>
 
-    
+              <button type="submit" className="create-btn">Guardar Remision</button>
+              </form>
+        </div>
+      )}
       </div>
     </div>
   );

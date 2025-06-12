@@ -21,6 +21,9 @@ app.use("/api/waste", wasteRoutes);
 const referralRoutes = require("./routes/referral.routes");
 app.use("/api/referrals", referralRoutes);
 
+const manifiestoRoutes = require("./routes/manifest.routes");
+app.use("/api/manifiestos", manifiestoRoutes);
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

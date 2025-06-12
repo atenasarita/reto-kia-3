@@ -194,6 +194,47 @@ exports.getSelectedRecords = async (req, res) => {
 };
 
 
+const db = require("../database/db");
+
+exports.getWasteByReferral = async (req, res) => {
+  const { referralId } = req.params;
+
+  try {
+    const result = await db.query(
+      `SELECT * FROM waste_records_test WHERE part_of_referral = $1`,
+      [referralId]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error al obtener residuos:", err);
+    res.status(500).json({ error: "Error al obtener residuos" });
+  }
+};
+
+
+exports.getGroupedSummaryByReferral = async (req, res) => {
+  const { referralId } = req.params;
+
+  try {
+    const result = await db.query(
+      `SELECT
+         type,
+         container,
+         COUNT(*) AS count,
+         SUM(amount) * 1000 AS total_amount
+       FROM waste_records_test
+       WHERE part_of_referral = $1
+       GROUP BY type, container`,
+      [referralId]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error al obtener resumen:", err);
+    res.status(500).json({ error: "Error al obtener resumen" });
+  }
+};
+
+
 
 
 

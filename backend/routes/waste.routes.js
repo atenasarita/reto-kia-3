@@ -19,6 +19,10 @@ router.get("/waste-registry/:id", auth, WasteController.getPendingWasteRecordByI
 router.put("/:id", auth, WasteController.updatePendingWasteRecord);
 router.delete("/:id", auth, WasteController.deletePendingWasteRecord);
 
+router.get("/by-referral/:referralId", WasteController.getWasteByReferral);
+router.get("/summary/by-referral/:referralId", WasteController.getGroupedSummaryByReferral);
+
+
 router.get('/count-pending', async (req, res) => {
     try {
       const result = await client.query('SELECT count_pending_records();');
